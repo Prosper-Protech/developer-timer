@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeHub - Developer Productivity Tool</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-code"></i> <span>CodeHub</span></h2>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="#" class="active" data-section="dashboard"><i class="fas fa-home"></i> <span>Dashboard</span></a></li>
+            <li><a href="#" data-section="projects"><i class="fas fa-project-diagram"></i> <span>Projects</span></a></li>
+            <li><a href="#" data-section="stats"><i class="fas fa-chart-line"></i> <span>Statistics</span></a></li>
+            <li><a href="#" data-section="history"><i class="fas fa-history"></i> <span>History</span></a></li>
+            <li><a href="#" data-section="badges"><i class="fas fa-trophy"></i> <span>Badges</span></a></li>
+            <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> <span>Settings</span></a></li>
+        </ul>
+        <div class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+            <span>Dark Mode</span>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="header">
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h1>Developer Productivity Dashboard</h1>
+            <button class="btn btn-primary" id="addProjectBtn"><i class="fas fa-plus"></i> Add Project</button>
+        </div>
+
+        <!-- GitHub-like header -->
+        <div class="github-header">
+            <img src="https://avatars.githubusercontent.com/u/583231?v=4" alt="Avatar" class="github-avatar">
+            <div>
+                <div class="github-username">octocoder</div>
+                <div class="repo-stats">
+                    <div class="repo-stat"><i class="fas fa-book"></i> 12 repositories</div>
+                    <div class="repo-stat"><i class="fas fa-clock"></i> 124 hours coded</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab navigation -->
+        <div class="tab-nav">
+            <button class="tab-link active">Overview</button>
+            <button class="tab-link">Repositories</button>
+            <button class="tab-link">Projects</button>
+            <button class="tab-link">Packages</button>
+        </div>
+
+        <!-- Motivational Quote -->
+        <div class="motivational-quote draggable" id="quoteWidget">
+            <i class="fas fa-grip-vertical drag-handle"></i>
+            <p id="quote">"First, solve the problem. Then, write the code." - John Johnson</p>
+        </div>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <h2>Your Projects</h2>
+            <div class="dashboard" id="projectsContainer">
+                <!-- Project cards will be dynamically inserted here -->
+            </div>
+
+            <h2>Today's Stats</h2>
+            <div class="stats-grid" id="statsGrid">
+                <div class="card stat-card draggable" id="totalTimeCard">
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                    <div class="card-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-value" id="totalTime">0h 0m</div>
+                    <div class="stat-label">Total Coding Time</div>
+                </div>
+                <div class="card stat-card draggable" id="streakCard">
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                    <div class="card-icon"><i class="fas fa-fire"></i></div>
+                    <div class="stat-value" id="streak">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="card stat-card draggable" id="sessionsCard">
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                    <div class="card-icon"><i class="fas fa-calendar"></i></div>
+                    <div class="stat-value" id="sessions">0</div>
+                    <div class="stat-label">Today's Sessions</div>
+                </div>
+                <div class="card stat-card draggable" id="productivityCard">
+                    <i class="fas fa-grip-vertical drag-handle"></i>
+                    <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="stat-value" id="productivity">0%</div>
+                    <div class="stat-label">Productivity Score</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other sections will be dynamically shown/hidden -->
+        <section id="projects" class="section" style="display: none;">
+            <h2>Project Management</h2>
+            <div class="card">
+                <h3>Your Projects</h3>
+                <p>Manage your projects from the dashboard. Click on "Add Project" to create a new project.</p>
+                <div id="projectList">
+                    <!-- Project list will be generated here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="stats" class="section" style="display: none;">
+            <h2>Detailed Statistics</h2>
+            <div class="card">
+                <h3>Weekly Overview</h3>
+                <p>Your weekly coding statistics will be displayed here.</p>
+            </div>
+        </section>
+
+        <section id="history" class="section" style="display: none;">
+            <h2>Coding History</h2>
+            <div class="card">
+                <h3>Session History</h3>
+                <div class="export-options">
+                    <button class="btn btn-primary" id="exportJSON"><i class="fas fa-file-code"></i> Export JSON</button>
+                    <button class="btn btn-success" id="exportCSV"><i class="fas fa-file-csv"></i> Export CSV</button>
+                </div>
+                <ul class="session-list" id="sessionList">
+                    <!-- Session history will be generated here -->
+                </ul>
+            </div>
+        </section>
+
+        <section id="badges" class="section" style="display: none;">
+            <h2>Earned Badges</h2>
+            <div class="badges-container" id="badgesContainer">
+                <!-- Badges will be generated here -->
+            </div>
+        </section>
+
+        <section id="settings" class="section" style="display: none;">
+            <h2>Settings</h2>
+            <div class="card">
+                <h3>Profile Settings</h3>
+                <div class="image-upload-container">
+                    <div class="image-preview" id="imagePreview">
+                        <i class="fas fa-user fa-3x" id="defaultIcon"></i>
+                        <img src="" alt="Profile Image" id="profileImage" style="display: none;">
+                    </div>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                    <label for="imageUpload" class="upload-btn">Choose Image</label>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Developer Name</label>
+                    <input type="text" class="form-control" id="developerName" placeholder="Enter your name">
+                </div>
+            </div>
+            <div class="card">
+                <h3>App Settings</h3>
+                <div class="form-group">
+                    <label class="form-label">Daily Goal (hours)</label>
+                    <input type="number" class="form-control" id="dailyGoal" value="2" min="1">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Enable Notifications</label>
+                    <select class="form-select" id="notifications">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Code Bot Visibility</label>
+                    <select class="form-select" id="codeBotVisibility">
+                        <option value="visible">Visible</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="saveSettings">Save Settings</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add Project Modal -->
+    <div class="modal" id="addProjectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Project</h3>
+                <button class="close">&times;</button>
+            </div>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label class="form-label">Project Name</label>
+                    <input type="text" class="form-control" id="projectName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" id="projectDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Image</label>
+                    <input type="file" class="form-control" id="projectImage" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Primary Language</label>
+                    <select class="form-select" id="projectLanguage">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="csharp">C#</option>
+                        <option value="php">PHP</option>
+                        <option value="cpp">C++</option>
+                        <option value="ruby">Ruby</option>
+                        <option value="swift">Swift</option>
+                        <option value="go">Go</option>
+                        <option value="rust">Rust</option>
+                        <option value="typescript">TypeScript</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tags</label>
+                    <input type="text" class="form-control" id="projectTags" placeholder="frontend, backend, design">
+                </div>
+                <button type="submit" class="btn btn-primary">Add Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-icon"><i class="fas fa-bell"></i></div>
+        <div class="notification-content">Timer completed successfully!</div>
+    </div>
+
+    <!-- Code Bot -->
+    <div class="code-bot-container">
+        <div class="code-bot" id="codeBot">
+            <i class="fas fa-robot"></i>
+            <div class="code-bot-message">
+                <p>Keep coding! You're doing great! 🚀</p>
+                <div class="code-bot-computer" id="codeBotComputer">
+                    <div class="code-bot-screen">
+                        <div class="code-bot-code" id="codeBotCode"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customization Panel -->
+    <div class="customization-panel" id="customizationPanel">
+        <h2>Customize Your Dashboard</h2>
+        
+        <div class="customization-section">
+            <h3>Colors</h3>
+            <div class="color-picker">
+                <div class="color-option active" style="background-color: #238636;" data-color="primary"></div>
+                <div class="color-option" style="background-color: #2ea043;" data-color="secondary"></div>
+                <div class="color-option" style="background-color: #3fb950;" data-color="success"></div>
+                <div class="color-option" style="background-color: #d29922;" data-color="warning"></div>
+                <div class="color-option" style="background-color: #f85149;" data-color="danger"></div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Background Color</label>
+                <input type="color" class="form-control" id="bgColorPicker" value="#0d1117">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Card Color</label>
+                <input type="color" class="form-control" id="cardColorPicker" value="#161b22">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Text Color</label>
+                <input type="color" class="form-control" id="textColorPicker" value="#f0f6fc">
+            </div>
+        </div>
+        
+        <div class="customization-section">
+            <h3>Layout</h3>
+            <div class="layout-grid">
+                <div class="layout-option" data-layout="grid">
+                    <i class="fas fa-th-large"></i>
+                    <div>Grid</div>
+                </div>
+                <div class="layout-option" data-layout="list">
+                    <i class="fas fa-list"></i>
+                    <div>List</div>
+                </div>
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Border Radius</span>
+                    <span class="slider-value" id="borderRadiusValue">6px</span>
+                </div>
+                <input type="range" min="0" max="20" value="6" class="range-slider" id="borderRadiusSlider">
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-label">
+                    <span>Shadow Intensity</span>
+                    <span class="slider-value" id="shadowValue">0.3</span>
+                </div>
+                <input type="range" min="0" max="10" value="3" class="range-slider" id="shadowSlider">
+            </div>
+        </div>
+        
+        <div class="customization-section">
+            <h3>Visibility</h3>
+            <div class="form-group">
+                <label class="form-label">Show Quote Widget</label>
+                <select class="form-select" id="quoteVisibility">
+                    <option value="visible">Visible</option>
+                    <option value="hidden">Hidden</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Show Stats Cards</label>
+                <select class="form-select" id="statsVisibility">
+                    <option value="visible">Visible</option>
+                    <option value="hidden">Hidden</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Show Code Bot</label>
+                <select class="form-select" id="botVisibility">
+                    <option value="visible">Visible</option>
+                    <option value="hidden">Hidden</option>
+                </select>
+            </div>
+        </div>
+        
+        <button class="reset-btn" id="resetCustomization">Reset to Default</button>
+    </div>
+
+    <div class="customization-toggle" id="customizationToggle">
+        <i class="fas fa-palette"></i>
+    </div>
+
+   <script src="script.js"></script>
+</body>
+</html>
