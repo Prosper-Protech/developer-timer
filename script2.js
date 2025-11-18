@@ -13,78 +13,7 @@
                             date: new Date().toISOString().split('T')[0],
                             icon: "fas fa-clipboard-list",
                             tasks: [
-                                {
-                                    text: "Prayers",
-                                    completed: false,
-                                    created: new Date().toISOString(),
-                                    duration: 15,
-                                    reminder: null,
-                                    timer: {
-                                        active: false,
-                                        startTime: null,
-                                        elapsed: 0
-                                    }
-                                },
-                                {
-                                    text: "Review Of Lecture notes before class",
-                                    completed: false,
-                                    created: new Date().toISOString(),
-                                    duration: 60,
-                                    reminder: null,
-                                    timer: {
-                                        active: false,
-                                        startTime: null,
-                                        elapsed: 0
-                                    }
-                                },
-                                {
-                                    text: "Project Setup & Planning for learnbook app for students",
-                                    completed: false,
-                                    created: new Date().toISOString(),
-                                    duration: 120,
-                                    reminder: null,
-                                    timer: {
-                                        active: false,
-                                        startTime: null,
-                                        elapsed: 0
-                                    }
-                                },
-                                {
-                                    text: "Product Idea Brainstorming",
-                                    completed: false,
-                                    created: new Date().toISOString(),
-                                    duration: 45,
-                                    reminder: null,
-                                    timer: {
-                                        active: false,
-                                        startTime: null,
-                                        elapsed: 0
-                                    }
-                                },
-                                {
-                                    text: "Learn New Concepts",
-                                    completed: false,
-                                    created: new Date().toISOString(),
-                                    duration: 90,
-                                    reminder: null,
-                                    timer: {
-                                        active: false,
-                                        startTime: null,
-                                        elapsed: 0
-                                    }
-                                },
-                                {
-                                    text: "Pushing code to GitHub",
-                                    completed: false,
-                                    created: new Date().toISOString(),
-                                    duration: 30,
-                                    reminder: null,
-                                    timer: {
-                                        active: false,
-                                        startTime: null,
-                                        elapsed: 0
-                                    }
-                                }
+                                
                             ]
                         }
                     ],
@@ -634,4 +563,5 @@
                     };
                 }
             }
+
         }
