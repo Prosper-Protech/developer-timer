@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProTech To-Do List Builder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+    <div class="container">
+        <header class="comic-panel">
+            <h1>PROTECH TO-DO BUILDER</h1>
+            <p class="subtitle">Your Ultimate Task Management Adventure!</p>
+            <div class="character">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <div class="comic-dots"></div>
+        </header>
+        
+        <div class="projects-container">
+            <div class="project-tabs" id="project-tabs">
+                <!-- Project tabs will be inserted here by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="dashboard">
+            <div class="comic-panel stat-card">
+                <div class="stat-label">Total Tasks</div>
+                <div class="stat-value" id="total-tasks-stat">0</div>
+            </div>
+            <div class="comic-panel stat-card">
+                <div class="stat-label">Completed</div>
+                <div class="stat-value" id="completed-tasks-stat">0</div>
+            </div>
+            <div class="comic-panel stat-card">
+                <div class="stat-label">Completion Rate</div>
+                <div class="stat-value" id="completion-rate-stat">0%</div>
+            </div>
+            <div class="comic-panel stat-card">
+                <div class="stat-label">Current Streak</div>
+                <div class="stat-value" id="current-streak-stat">0 days</div>
+            </div>
+        </div>
+        
+        <div class="comic-panel progress-container">
+            <h2 class="progress-title"><i class="fas fa-tachometer-alt"></i> ADVENTURE PROGRESS</h2>
+            <div class="progress-bar">
+                <div class="progress" id="progress-bar"></div>
+            </div>
+            <div class="progress-stats">
+                <span id="completed-tasks">0</span> of <span id="total-tasks">0</span> quests completed
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="comic-dots"></div>
+        </div>
+        
+        <div class="days-container" id="days-container">
+            <!-- Days will be inserted here by JavaScript -->
+        </div>
+        
+        <div class="comic-panel quote">
+            <p>"Productivity is never an accident. It is always the result of a commitment to excellence, intelligent planning, and focused effort."</p>
+            <div class="comic-dots"></div>
+        </div>
+        
+        <div class="controls">
+            <button id="save-btn"><i class="fas fa-save"></i> Save Progress</button>
+            <button id="new-project-btn"><i class="fas fa-plus"></i> New Project</button>
+            <button class="share-btn" id="share-btn"><i class="fas fa-share-alt"></i> Share Progress</button>
+            <button class="reset-btn" id="reset-btn"><i class="fas fa-redo"></i> Reset Day</button>
+        </div>
+    </div>
+
+    <!-- Modal for adding/editing tasks -->
+    <div class="modal" id="task-modal">
+        <div class="modal-content comic-panel">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Add New Quest</h3>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="edit-day-index">
+                <input type="hidden" id="edit-task-index">
+                <div class="form-group">
+                    <label for="task-text">Quest Description</label>
+                    <textarea id="task-text" placeholder="Describe your next quest..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="task-duration">Estimated Duration (minutes)</label>
+                    <input type="number" id="task-duration" min="1" value="30">
+                </div>
+                <div class="form-group">
+                    <label for="task-reminder">Reminder Time</label>
+                    <input type="time" id="task-reminder">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+                    <button type="submit" id="save-task-btn">Save Quest</button>
+                </div>
+            </form>
+            <div class="comic-dots"></div>
+        </div>
+    </div>
+
+    <!-- Modal for adding new projects -->
+    <div class="modal" id="project-modal">
+        <div class="modal-content comic-panel">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Project</h3>
+                <button class="close-btn" id="close-project-modal">&times;</button>
+            </div>
+            <form id="project-form">
+                <div class="form-group">
+                    <label for="project-name">Project Name</label>
+                    <input type="text" id="project-name" placeholder="Enter project name..." required>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Description</label>
+                    <textarea id="project-description" placeholder="Describe your project..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" id="cancel-project-btn">Cancel</button>
+                    <button type="submit" id="save-project-btn">Create Project</button>
+                </div>
+            </form>
+            <div class="comic-dots"></div>
+        </div>
+    </div>
+
+    <!-- Modal for sharing progress -->
+    <div class="modal" id="share-modal">
+        <div class="modal-content comic-panel">
+            <div class="modal-header">
+                <h3 class="modal-title">Share Your Progress</h3>
+                <button class="close-btn" id="close-share-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <p>Share this link to let others view your progress:</p>
+                <div class="share-link" id="share-link">Generating link...</div>
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-btn" id="close-share-btn">Close</button>
+            </div>
+            <div class="comic-dots"></div>
+        </div>
+    </div>
+
+    <script src="script2.js"></script>
+</body>
+</html>
