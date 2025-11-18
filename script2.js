@@ -7,15 +7,7 @@
                     description: 'Your daily to-do list',
                     created: new Date().toISOString(),
                     days: [
-                        {
-                            day: 1,
-                            title: "TUESDAY",
-                            date: new Date().toISOString().split('T')[0],
-                            icon: "fas fa-clipboard-list",
-                            tasks: [
-                                
-                            ]
-                        }
+                        
                     ],
                     statistics: {
                         totalTasks: 0,
@@ -565,3 +557,4 @@
             }
 
         }
+
